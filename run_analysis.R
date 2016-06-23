@@ -14,6 +14,7 @@ run_analysis <- function()
   suppressPackageStartupMessages(library(dplyr))
   suppressPackageStartupMessages(library(tidyr))
   
+  
   #The directory containing the data set
   setwd("c:/datasciencecoursera/ProgrammingAssignment4/UCI HAR Dataset")
   
@@ -74,6 +75,7 @@ run_analysis <- function()
   #create melted table to include a single observation for each row
   mDataDT <- melt(allDataDT, id = id_labels, measure.vars = data_labels)
   write.table(mDataDT, file = './mdata.txt')
+  
 
   #Create final  data file grouped by Subject and Activity/Description
   tDataDT   <- dcast(mDataDT, Subject + Activity + ActivityDescription ~ variable, mean)
