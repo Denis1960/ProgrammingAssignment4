@@ -10,9 +10,8 @@ run_analysis <- function()
 {
   
   #load the libraries needed for the function
-  suppressPackageStartupMessages(library(data.table))
-  suppressPackageStartupMessages(library(dplyr))
-  suppressPackageStartupMessages(library(tidyr))
+  
+  #suppressPackageStartupMessages(library(tidyr))
   
   
   #The directory containing the data set
@@ -79,10 +78,12 @@ run_analysis <- function()
 
   #Create final  data file grouped by Subject and Activity/Description
   tDataDT   <- dcast(mDataDT, Subject + Activity + ActivityDescription ~ variable, mean)
-  #Melt the file to create one observation per row
-  tDataDT <- melt(tDataDT, id = id_labels, measure.vars = data_labels)
   tDataDT  <- format(tDataDT , just = "left")
   capture.output(print(tDataDT, print.gap=3), file ="./tdata.txt")
+  #Melt the file to create one observation per row
+  meltDataDT <- melt(tDataDT, id = id_labels, measure.vars = data_labels)
+  meltDataDT  <- format(meltDataDT , just = "left")
+  capture.output(print(meltDataDT, print.gap=3), file ="./tidy_data.txt")
   
   
   
